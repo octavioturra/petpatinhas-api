@@ -1,3 +1,4 @@
+import * as constant from '../models/constants';
 var models = require('../models');
 
 export function breeds() {
@@ -8,32 +9,42 @@ export function breeds() {
     });
 }
 
-function create_animal(animal) {
-    return models.Animal.create({
+function create_animal(animal, action='create') {
+    return models.Animal[action]({
         name: animal.name,
-        kind: animal.kind || KIND.DOG,
-        profilePicture: animal.profilePictureUrl || DEFAULT_PICTURE
+        kind: animal.kind || constant.KIND.DOG,
+        profilePicture: animal.profilePictureUrl || constant.DEFAULT_PICTURE
     });
 }
 
-function create_profile(animal) {
-    return models.AnimalProfile.create({
+function create_profile(animal, action='create') {
+    return (a) => models.AnimalProfile[action]({
         birthYear: animal.birthYear,
-        genre: animal.genre||GENRE.UNKNOWN,
-        size: animal.size || SIZE.UNKNOWN,
-        mood: animal.mood || MOOD.UNKNOWN,
+        genre: animal.genre || constant.GENRE.UNKNOWN,
+        size: animal.size || constant.SIZE.UNKNOWN,
+        mood: animal.mood || constant.MOOD.UNKNOWN,
         primaryColor: animal.primaryColor,
-        secundaryColor: animal.secundaryColor
-    })
+        secundaryColor: animal.secundaryColor,
+        breedId: animal.breedId || constant.UNKNOWN,
+        animalId: a.uuuid
+    });
 }
 
-function create_relationship(animal, user_id, relationship_type) {
-
+function create_relationship(animal, userId, relationship=constant.ORIGIN.OWNER, action='create') {
+    return () => models.Relationship[action]({
+        origin: relationship ,
+        city: animal.city,
+        state: animal.state,
+        userId: userId,
+        animalId: animal.uuid
+    });
 }
 
-export function create(animal_data, user_id, relationship_type = 1) {
+export function create(animalData, userId, relationship=constant.ORIGIN.OWNER) {
     if (!animal_data) {
         throw new Error('empty animal data');
     }
-
+    return create_animal(animalData)
+        .then(create_profile(animalData))
+        .then(create_relationship(animalData, userId, relationship));
 }

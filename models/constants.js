@@ -1,5 +1,7 @@
 export const DEFAULT_PICTURE = 'http://placekitten.com/90/90';
 
+export const UNKNOWN = 0
+
 export const STATUS = {
     ACTIVE : 1,
     BLOCKED : 2
@@ -32,4 +34,11 @@ export const MOOD = {
     DOCILE : 1,
     AGGRESSIVE : 2,
     FEARFUL : 3
-}
+};
+
+export const ORIGIN = {
+    OWNER : 1,
+    ADOPTER : 2,
+    FOUND : 3,
+    LOST : 4
+};

@@ -48,7 +48,6 @@ var Breed = sequelize.define('Animal', {
 });
 
 var Relationship = sequelize.define('Relationship', {
-    status: Sequelize.INTEGER,
     origin: Sequelize.INTEGER,
     city: Sequelize.STRING,
     state: Sequelize.STRING,
@@ -95,10 +94,6 @@ Follow.hasOne(Animal, {
 Follow.hasOne(User, {
     foreignKey: 'user_id',
     as: 'userId'
-});
-Animal.hasOne(AnimalProfile, {
-    foreignKey: 'animal_profile_id',
-    as: 'profileId'
 });
 
 
