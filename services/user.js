@@ -1,0 +1,16 @@
+var models = require('../models');
+
+export function crate(facebook_profile){
+    return models.User.create({
+        id : facebook_profile.id,
+        name : facebook_profile.displayName
+    });
+};
+
+export function get(id){
+    return models.User.findOne({
+        where: {
+            id: id
+        }
+    });
+};
