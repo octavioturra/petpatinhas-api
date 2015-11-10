@@ -21,7 +21,8 @@
         <button onclick="createAnimal()">create animal</button>
         <output></output>
         <script>
-            fetch('/users', {
+        function createAnimal(){
+            fetch('/api/animal', {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
@@ -35,6 +36,7 @@
             }).catch(function(ex) {
                 console.log('parsing failed', ex);
             });
+        }
         </script>
         <% } %>
 </body>

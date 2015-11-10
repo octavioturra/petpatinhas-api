@@ -10,12 +10,10 @@ var FACEBOOK_APP_ID = '386571188077980';
 var FACEBOOK_APP_SECRET = '2c2f36d4d23cc6db98a9a8dcd8c30a65';
 
 function serializeUser(user, done) {
-    console.log('>>>>>>serialize user', user.id);
     done(null, user.id);
 }
 
 function deserializeUser(id, done) {
-    console.log('>>>>>>deserialize user', user.id);
     user.get(id).then((user) => done(null, user));
 }
 
