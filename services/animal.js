@@ -31,20 +31,20 @@ function create_profile(animal, action='create') {
 }
 
 function create_relationship(animal, userId, relationship=constant.ORIGIN.OWNER, action='create') {
-    return () => models.Relationship[action]({
-        origin: relationship ,
+    return (a) => models.Relationship[action]({
+        origin: relationship,
         city: animal.city,
         state: animal.state,
         userId: userId,
-        animalId: animal.uuid
+        animalId: a.animalId
     });
 }
 
-export function create(animalData, userId, relationship=constant.ORIGIN.OWNER) {
+export function create(animalData, userId) {
     if (!animal_data) {
         throw new Error('empty animal data');
     }
     return create_animal(animalData)
         .then(create_profile(animalData))
-        .then(create_relationship(animalData, userId, relationship));
+        .then(create_relationship(animalData, userId, animalData.relationship));
 }

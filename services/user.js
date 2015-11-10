@@ -1,6 +1,6 @@
 var models = require('../models');
 
-export function crate(facebook_profile){
+export function create(facebook_profile){
     return models.User.create({
         id : facebook_profile.id,
         name : facebook_profile.displayName

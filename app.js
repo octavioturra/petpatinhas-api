@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 
 var routes = require('./routes/index');
+var animal = require('./routes/animal');
 var auth = require('./routes/auth');
 
 var app = express();
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/auth', auth);
+app.use('/api/animal', animal);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
