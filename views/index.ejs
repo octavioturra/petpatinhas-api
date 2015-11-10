@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <p>Welcome to
+        <%= title %>
+    </p>
     <a href="/auth/login">Enter</a>
     <% if (user){ %>
-      <button onclick="createAnimal()">create animal</button>
-      <output></output>
-      <script>
-      fetch('/users', {
-        method: 'post',
-        headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  },
-        body: '{"name":"faisca","kind":1,"profilePictureUrl":"http://lorempixum.com/90/90","birthYear":2011,"genre":2,"size":4,"relationship":1,"primaryColor":3381536,"secundaryColor":3379488,"breedId":0,"city":"Sao Paulo","state":"SP"}'
-      }).then(function(response) {
-            return response.json();
-          }).then(function(json) {
-            document.querySelector('output').innerHTML = json;
-          }).catch(function(ex) {
-            console.log('parsing failed', ex);
-          })
-      </script>
-    <% } %>
-  </body>
+        <h1><%= user.name %></h1>
+        <button onclick="createAnimal()">create animal</button>
+        <output></output>
+        <script>
+            fetch('/users', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: '{"name":"faisca","kind":1,"profilePictureUrl":"http://lorempixum.com/90/90","birthYear":2011,"genre":2,"size":4,"relationship":1,"primaryColor":3381536,"secundaryColor":3379488,"breedId":0,"city":"Sao Paulo","state":"SP"}'
+            }).then(function(response) {
+                return response.json();
+            }).then(function(json) {
+                document.querySelector('output').innerHTML = json;
+            }).catch(function(ex) {
+                console.log('parsing failed', ex);
+            });
+        </script>
+        <% } %>
+</body>
+
 </html>

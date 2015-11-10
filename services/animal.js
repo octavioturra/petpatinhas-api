@@ -9,7 +9,7 @@ export function breeds() {
     });
 }
 
-function create_animal(animal, action='create') {
+function create_animal(animal, action = 'create') {
     return models.Animal[action]({
         name: animal.name,
         kind: animal.kind || constant.KIND.DOG,
@@ -17,7 +17,7 @@ function create_animal(animal, action='create') {
     });
 }
 
-function create_profile(animal, action='create') {
+function create_profile(animal, action = 'create') {
     return (a) => models.AnimalProfile[action]({
         birthYear: animal.birthYear,
         genre: animal.genre || constant.GENRE.UNKNOWN,
@@ -30,7 +30,7 @@ function create_profile(animal, action='create') {
     });
 }
 
-function create_relationship(animal, userId, relationship=constant.ORIGIN.OWNER, action='create') {
+function create_relationship(animal, userId, relationship = constant.ORIGIN.OWNER, action = 'create') {
     return (a) => models.Relationship[action]({
         origin: relationship,
         city: animal.city,
