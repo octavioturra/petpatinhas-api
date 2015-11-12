@@ -74,9 +74,13 @@ function relationshipAnimal(relationships) {
 
 export function getByUser(userId, status = constant.STATUS.ACTIVE) {
     return userRelationships(userId)
-        .then(relationshipAnimal)
+        .then(relationshipAnimal);
 };
 
-export function getByKind(userId, status = constant.STATUS.ACTIVE) {
-
+export function getByKind(kindId, status = constant.STATUS.ACTIVE) {
+    return models.Animal.findAll({
+        where: {
+            kind: kindId
+        }
+    });
 };

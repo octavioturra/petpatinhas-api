@@ -72,5 +72,5 @@ module.exports = {
     Relationship: Relationship,
     Like: Like,
     Follow: Like,
-    sync: ()=> sequelize.sync()
+    sync: () => sequelize.sync()
 };

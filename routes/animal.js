@@ -10,7 +10,7 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/#login');
 }
 
-function consoleAndPass(content){
+function consoleAndPass(content) {
     console.log(content);
     return content;
 }
@@ -24,9 +24,15 @@ var post = (req, res) => animal
     .catch(responseError(req, res));
 var get = (req, res) => animal
     .get(req.params.id)
-    .then(responseJson(req, res));
+    .then(responseJson(req, res))
+    .catch(responseError(req, res));
+var listByUser = (req, res) => animal
+    .getByUser(req.user.id)
+    .then(responseJson(req, res))
+    .catch(responseError(req, res));
 
 router.post('/', ensureAuthenticated, post);
 router.get('/:id', ensureAuthenticated, get);
+router.get('/', ensureAuthenticated, listByUser);
 
 module.exports = router;
