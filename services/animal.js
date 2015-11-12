@@ -41,7 +41,7 @@ function create_relationship(animal, userId, relationship = constant.ORIGIN.OWNE
 }
 
 export function create(animalData, userId) {
-    if (!animal_data) {
+    if (!animalData) {
         throw new Error('empty animal data');
     }
     return create_animal(animalData)

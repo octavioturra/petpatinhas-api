@@ -8,15 +8,6 @@ var databaseConfig = {
 var sequelize = new Sequelize('database', 'u', 'p', databaseConfig);
 
 var baseModel = {
-    uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
-    },
-    created_at: {
-        type: Sequelize.DATE,
-        defaultValue: DataTypes.NOW,
-    },
     status: {
         type: Sequelize.INTEGER,
         defaultValue: 1
@@ -24,9 +15,8 @@ var baseModel = {
 };
 
 var User = sequelize.define('User', {
-    ...baseModel,
-    id: Sequelize.INTEGER,
-        name: Sequelize.STRING
+    name: Sequelize.STRING,
+    ...baseModel
 });
 
 var Animal = sequelize.define('Animal', {
@@ -36,7 +26,7 @@ var Animal = sequelize.define('Animal', {
     ...baseModel
 });
 
-var AnimalProfile = sequelize.define('Animal', {
+var AnimalProfile = sequelize.define('AnimalProfile', {
     birthYear: Sequelize.INTEGER,
     genre: Sequelize.INTEGER,
     size: Sequelize.INTEGER,
@@ -45,7 +35,7 @@ var AnimalProfile = sequelize.define('Animal', {
     secundaryColor: Sequelize.INTEGER
 });
 
-var Breed = sequelize.define('Animal', {
+var Breed = sequelize.define('Breed', {
     name: Sequelize.INTEGER
 });
 
@@ -66,40 +56,29 @@ var Follow = sequelize.define('Follow', {
 
 
 AnimalProfile.hasOne(Animal, {
-    foreignKey: 'animal_id',
     as: 'animalId'
 });
 AnimalProfile.hasOne(Breed, {
-    foreignKey: 'breed_id',
     as: 'breedId'
 });
 Relationship.hasOne(Animal, {
-    foreignKey: 'animal_id',
     as: 'animalId'
 });
 Relationship.hasOne(User, {
-    foreignKey: 'user_id',
     as: 'userId'
 });
 Like.hasOne(Animal, {
-    foreignKey: 'animal_id',
     as: 'animalId'
 });
 Like.hasOne(User, {
-    foreignKey: 'user_id',
     as: 'userId'
 });
 Follow.hasOne(Animal, {
-    foreignKey: 'animal_id',
     as: 'animalId'
 });
 Follow.hasOne(User, {
-    foreignKey: 'user_id',
     as: 'userId'
 });
-
-
-sequelize.sync();
 
 module.exports = {
     User: User,
@@ -108,5 +87,6 @@ module.exports = {
     Breed: Breed,
     Relationship: Relationship,
     Like: Like,
-    Follow: Like
+    Follow: Like,
+    sync: ()=> sequelize.sync()
 };

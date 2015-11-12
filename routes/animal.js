@@ -10,9 +10,21 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/#login');
 }
 
-var responseJson = (d) => res.json(d);
-var post = (req, res) => animal.create(req.body.animal, req.user.id).then(responseJson);
-var get = (req, res) => animal.get(req.params.id).then(responseJson);
+function consoleAndPass(content){
+    console.log(content);
+    return content;
+}
+
+var responseJson = (req, res) => (d) => res.json(d);
+var responseError = (req, res) => (err) => res.json(err);
+
+var post = (req, res) => animal
+    .create(req.body.animal, req.user.id)
+    .then(responseJson(req, res))
+    .catch(responseError(req, res));
+var get = (req, res) => animal
+    .get(req.params.id)
+    .then(responseJson(req, res));
 
 router.post('/', ensureAuthenticated, post);
 router.get('/:id', ensureAuthenticated, get);

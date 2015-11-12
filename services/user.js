@@ -8,7 +8,6 @@ export function create(facebook_profile) {
 };
 
 export function get(id) {
-    console.log('>>>get', id);
     return models.User.findOne({
         where: {
             id: id

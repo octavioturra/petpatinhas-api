@@ -10,6 +10,8 @@ var routes = require('./routes/index');
 var animal = require('./routes/animal');
 var auth = require('./routes/auth');
 
+require('./models').sync();
+
 var app = express();
 
 // view engine setup
