@@ -55,30 +55,14 @@ var Follow = sequelize.define('Follow', {
 });
 
 
-AnimalProfile.hasOne(Animal, {
-    as: 'animalId'
-});
-AnimalProfile.hasOne(Breed, {
-    as: 'breedId'
-});
-Relationship.hasOne(Animal, {
-    as: 'animalId'
-});
-Relationship.hasOne(User, {
-    as: 'userId'
-});
-Like.hasOne(Animal, {
-    as: 'animalId'
-});
-Like.hasOne(User, {
-    as: 'userId'
-});
-Follow.hasOne(Animal, {
-    as: 'animalId'
-});
-Follow.hasOne(User, {
-    as: 'userId'
-});
+AnimalProfile.belongsTo(Animal);
+AnimalProfile.hasOne(Breed);
+Relationship.belongsTo(Animal);
+Relationship.belongsTo(User);
+Like.belongsTo(Animal);
+Like.belongsTo(User);
+Follow.belongsTo(Animal);
+Follow.belongsTo(User);
 
 module.exports = {
     User: User,

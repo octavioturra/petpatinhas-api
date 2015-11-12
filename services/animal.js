@@ -7,17 +7,17 @@ export function breeds() {
             status: STATUS.BLOCKED
         }
     });
-}
+};
 
-function create_animal(animal, action = 'create') {
+function createAnimal(animal, action = 'create') {
     return models.Animal[action]({
         name: animal.name,
         kind: animal.kind || constant.KIND.DOG,
         profilePicture: animal.profilePictureUrl || constant.DEFAULT_PICTURE
     });
-}
+};
 
-function create_profile(animal, action = 'create') {
+function createProfile(animal, action = 'create') {
     return (a) => models.AnimalProfile[action]({
         birthYear: animal.birthYear,
         genre: animal.genre || constant.GENRE.UNKNOWN,
@@ -28,9 +28,9 @@ function create_profile(animal, action = 'create') {
         breedId: animal.breedId || constant.UNKNOWN,
         animalId: a.uuuid
     });
-}
+};
 
-function create_relationship(animal, userId, relationship = constant.ORIGIN.OWNER, action = 'create') {
+function createRelationship(animal, userId, relationship = constant.ORIGIN.OWNER, action = 'create') {
     return (a) => models.Relationship[action]({
         origin: relationship,
         city: animal.city,
@@ -38,13 +38,45 @@ function create_relationship(animal, userId, relationship = constant.ORIGIN.OWNE
         userId: userId,
         animalId: a.animalId
     });
-}
+};
 
 export function create(animalData, userId) {
     if (!animalData) {
         throw new Error('empty animal data');
     }
-    return create_animal(animalData)
-        .then(create_profile(animalData))
-        .then(create_relationship(animalData, userId, animalData.relationship));
-}
+    return createAnimal(animalData)
+        .then(createProfile(animalData))
+        .then(createRelationship(animalData, userId, animalData.relationship));
+};
+
+function userRelationships(userId) {
+    return models.Relationship.forAll({
+        where: {
+            UserId: userId
+        }
+    });
+};
+
+function userRelationships(userId) {
+    return models.Relationship().findAll({
+        include: [{
+            model: models.Animal
+        }],
+        where: {
+            userId: userId
+        }
+    });
+};
+
+function relationshipAnimal(relationships) {
+    return relationships.map((relatinship) => relationahip.Animal);
+};
+
+export function getByUser(userId, status = constant.STATUS.ACTIVE) {
+    return userRelationships(userId)
+        .then(relationshipAnimal)
+};
+
+export function getByKind(userId, status = constant.STATUS.ACTIVE) {
+
+};
