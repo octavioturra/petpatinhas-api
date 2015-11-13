@@ -68,8 +68,13 @@ function userRelationships(userId) {
     });
 };
 
+function qr(d){
+    console.log(d);
+    return d;
+}
+
 function relationshipAnimal(relationships) {
-    return relationships.map((relatinship) => relationahip.Animal);
+    return Promise.all(relationships.map((relationship) => qr(relationship)));
 };
 
 export function getByUser(userId, status = constant.STATUS.ACTIVE) {
