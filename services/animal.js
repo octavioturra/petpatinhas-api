@@ -57,32 +57,34 @@ function userRelationships(userId) {
     });
 };
 
-function userRelationships(userId) {
+function userRelationships(userId, status) {
     return models.Relationship.findAll({
         include: [{
             model: models.Animal
         }],
         where: {
             UserId: userId,
-            status: 1
+            status
         }
     });
 };
 
-function consolidate(r){
-    let Animal = r.Animal;
-    console.log(Animal, 'Animal<<<')
+function consolidateAnimal(a){
     return {
-        id : Animal.id,
-        name : Animal.name,
-        kind : Animal.kind
+        id : a.id,
+        name : a.name,
+        kind : a.kind
     };
+};
+
+function consolidateRelationship(r){
+    return consolidateAnimal(r.Animal);
 };
 
 function animalFromRelationship(relationships){
     return relationships
         .filter((r)=>r.Animal)
-        .map(consolidate);
+        .map(consolidateRelationship);
 }
 
 function relationshipAnimal(relationships) {
@@ -90,14 +92,24 @@ function relationshipAnimal(relationships) {
 };
 
 export function getByUser(userId, status = constant.STATUS.ACTIVE) {
-    return userRelationships(userId)
+    return userRelationships(userId, status)
         .then(relationshipAnimal);
 };
 
-export function getByKind(kindId, status = constant.STATUS.ACTIVE) {
+function animalsByKind(kindId, status){
     return models.Animal.findAll({
         where: {
-            kind: kindId
+            kind: kindId,
+            status
         }
     });
+}
+
+function animalFromQuery(animals){
+    return Promise.all(animals.map(consolidateAnimal));
+}
+
+export function getByKind(kindId, status = constant.STATUS.ACTIVE) {
+    return animalsByKind(kindId, status)
+        .then(animalFromQuery);
 };

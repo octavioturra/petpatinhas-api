@@ -37,8 +37,14 @@ var listByUser = (req, res) => animal
     .then(responseJson(req, res))
     .catch(responseError(req, res));
 
+var listByKind = (req, res) => animal
+    .getByKind(req.params.id)
+    .then(responseJson(req, res))
+    .catch(responseError(req, res));
+
 router.post('/', ensureAuthenticated, post);
 router.get('/:id', ensureAuthenticated, get);
 router.get('/', ensureAuthenticated, listByUser);
+router.get('/kind/:id', ensureAuthenticated, listByKind);
 
 module.exports = router;
