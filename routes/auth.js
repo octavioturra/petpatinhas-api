@@ -27,7 +27,7 @@ var strategy = (cb) => new FacebookStrategy({
 }, cb);
 
 var userCreated = (done) => (user) => (user) ? done(null, user) : done(new Error('Cannot save user'));
-var successLogin = (accessToken, refreshToken, profile, done) => user.create(profile).then(userCreated(done));
+var successLogin = (accessToken, refreshToken, profile, done) => user.initialize(profile).spread(userCreated(done));
 var authenticate = passport.authenticate('facebook', {
     successRedirect: '/loggedIn',
     failureRedirect: '/auth/login'

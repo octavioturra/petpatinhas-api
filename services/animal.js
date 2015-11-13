@@ -25,8 +25,8 @@ function createProfile(animal, action = 'create') {
         mood: animal.mood || constant.MOOD.UNKNOWN,
         primaryColor: animal.primaryColor,
         secundaryColor: animal.secundaryColor,
-        breedId: animal.breedId || constant.UNKNOWN,
-        animalId: a.uuuid
+        BreedId: animal.breedId || constant.UNKNOWN,
+        AnimalId: a.id
     });
 };
 
@@ -35,8 +35,8 @@ function createRelationship(animal, userId, relationship = constant.ORIGIN.OWNER
         origin: relationship,
         city: animal.city,
         state: animal.state,
-        userId: userId,
-        animalId: a.animalId
+        UserId: userId,
+        AnimalId: a.AnimalId
     });
 };
 
@@ -58,12 +58,12 @@ function userRelationships(userId) {
 };
 
 function userRelationships(userId) {
-    return models.Relationship().findAll({
+    return models.Relationship.findAll({
         include: [{
             model: models.Animal
         }],
         where: {
-            userId: userId
+            UserId: userId
         }
     });
 };

@@ -15,8 +15,8 @@ function consoleAndPass(content) {
     return content;
 }
 
-var responseJson = (req, res) => (d) => res.json(d);
-var responseError = (req, res) => (err) => res.json(err);
+var responseJson = (req, res) => (d) => res.json(JSON.stringify(d));
+var responseError = (req, res) => (err) => res.json(JSON.stringify(err));
 
 var post = (req, res) => animal
     .create(req.body.animal, req.user.id)
