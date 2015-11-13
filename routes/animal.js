@@ -14,9 +14,13 @@ function consoleAndPass(content) {
     console.log(content);
     return content;
 }
+function errorAndPass(...content) {
+    console.error(content);
+    return content;
+}
 
-var responseJson = (req, res) => (d) => res.json(JSON.stringify(d));
-var responseError = (req, res) => (err) => res.json(JSON.stringify(err));
+var responseJson = (req, res) => (d) => res.json(consoleAndPass(JSON.stringify(d)));
+var responseError = (req, res) => (err) => res.json(errorAndPass(err, JSON.stringify(err)));
 
 var post = (req, res) => animal
     .create(req.body.animal, req.user.id)

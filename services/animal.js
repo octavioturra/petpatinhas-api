@@ -63,18 +63,30 @@ function userRelationships(userId) {
             model: models.Animal
         }],
         where: {
-            UserId: userId
+            UserId: userId,
+            status: 1
         }
     });
 };
 
-function qr(d){
-    console.log(d);
-    return d;
+function consolidate(r){
+    let Animal = r.Animal;
+    console.log(Animal, 'Animal<<<')
+    return {
+        id : Animal.id,
+        name : Animal.name,
+        kind : Animal.kind
+    };
+};
+
+function animalFromRelationship(relationships){
+    return relationships
+        .filter((r)=>r.Animal)
+        .map(consolidate);
 }
 
 function relationshipAnimal(relationships) {
-    return Promise.all(relationships.map((relationship) => qr(relationship)));
+    return Promise.all(animalFromRelationship(relationships));
 };
 
 export function getByUser(userId, status = constant.STATUS.ACTIVE) {

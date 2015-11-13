@@ -20,7 +20,7 @@ var User = sequelize.define('User', {
 });
 
 var Animal = sequelize.define('Animal', {
-  name: Sequelize.DATE,
+  name: Sequelize.STRING,
   kind: Sequelize.INTEGER,
   profilePictureUrl: Sequelize.STRING,
   ...baseModel
@@ -55,7 +55,7 @@ var Follow = sequelize.define('Follow', {
 });
 
 
-AnimalProfile.belongsTo(Animal);
+Animal.hasOne(AnimalProfile);
 AnimalProfile.hasOne(Breed);
 Relationship.belongsTo(Animal);
 Relationship.belongsTo(User);
