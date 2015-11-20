@@ -57,6 +57,8 @@ var Follow = sequelize.define('Follow', {
 
 Animal.hasOne(AnimalProfile);
 AnimalProfile.hasOne(Breed);
+Animal.hasMany(Relationship);
+User.hasMany(Relationship);
 Relationship.belongsTo(Animal);
 Relationship.belongsTo(User);
 Like.belongsTo(Animal);
@@ -72,5 +74,6 @@ module.exports = {
   Relationship: Relationship,
   Like: Like,
   Follow: Like,
-  sync: () => sequelize.sync()
+  sync: () => sequelize.sync(),
+  db: sequelize
 };

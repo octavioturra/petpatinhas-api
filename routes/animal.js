@@ -33,7 +33,7 @@ var get = (req, res) => animal
     .catch(responseError(req, res));
 
 var listByUser = (req, res) => animal
-    .getByUser(req.user.id)
+    .getByUserSQL(req.user.id)
     .then(responseJson(req, res))
     .catch(responseError(req, res));
 
