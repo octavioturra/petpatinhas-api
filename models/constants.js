@@ -4,7 +4,8 @@ export const UNKNOWN = 0
 
 export const STATUS = {
     ACTIVE: 1,
-    BLOCKED: 2
+    BLOCKED: 2,
+    REMOVED: 3
 };
 
 export const KIND = {
@@ -37,8 +38,8 @@ export const MOOD = {
 };
 
 export const ORIGIN = {
-    OWNER: 1,
-    ADOPTER: 2,
+    OWN: 1,
+    ADOPTEE: 2,
     FOUND: 3,
     LOST: 4
 };

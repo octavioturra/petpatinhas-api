@@ -8,6 +8,10 @@ var passport = require('passport');
 
 var routes = require('./routes/index');
 var animal = require('./routes/animal');
+var like = require('./routes/like');
+var follow = require('./routes/follow');
+var constants = require('./routes/constants');
+
 var auth = require('./routes/auth');
 
 require('./models').sync();
@@ -46,6 +50,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/auth', auth);
 app.use('/api/animal', animal);
+app.use('/api/like', like);
+app.use('/api/follow', follow);
+app.use('/api/constants', constants);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
