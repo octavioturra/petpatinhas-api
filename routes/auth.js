@@ -23,16 +23,16 @@ passport.deserializeUser(deserializeUser);
 var strategy = (cb) => new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback'
+    callbackURL: 'http://petpatinhas.dev/_ah/auth/facebook/callback'
 }, cb);
 
 var userCreated = (done) => (user) => (user) ? done(null, user) : done(new Error('Cannot save user'));
 var successLogin = (accessToken, refreshToken, profile, done) => user.initialize(profile).spread(userCreated(done));
 var authenticate = passport.authenticate('facebook', {
-    successRedirect: '/loggedIn',
-    failureRedirect: '/auth/login'
+    successRedirect: '/_ah/loggedIn',
+    failureRedirect: '/_ah/auth/login'
 });
-var onLogin = (req, res) => res.redirect('/auth/facebook');
+var onLogin = (req, res) => res.redirect('/_ah/auth/facebook');
 
 passport.use(strategy(successLogin));
 

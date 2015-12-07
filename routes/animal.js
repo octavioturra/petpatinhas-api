@@ -15,12 +15,12 @@ var get = (req, res) => animal
     .catch(rest.responseError(req, res));
 
 var listByUser = (req, res) => animal
-    .listByUser(req.user.id)
+    .listByUser(req.user.id, req.query.page)
     .then(rest.responseJson(req, res))
     .catch(rest.responseError(req, res));
 
 var listByKind = (req, res) => animal
-    .listByKind(req.params.id)
+    .listByKind(req.params.id, req.query.page)
     .then(rest.responseJson(req, res))
     .catch(rest.responseError(req, res));
 

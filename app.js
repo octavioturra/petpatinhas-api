@@ -48,11 +48,11 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/auth', auth);
-app.use('/api/animal', animal);
-app.use('/api/like', like);
-app.use('/api/follow', follow);
-app.use('/api/constants', constants);
+app.use('/_ah/auth', auth);
+app.use('/_ah/api/animal', animal);
+app.use('/_ah/api/like', like);
+app.use('/_ah/api/follow', follow);
+app.use('/_ah/api/constants', constants);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
